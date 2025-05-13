@@ -1,9 +1,9 @@
 [project]
-name = "adk-short-bot"
+name = "manager"
 version = "0.1.0"
-description = "A bot that shortens your messages"
+description = "A bot that helps students with autism"
 authors = [
-    {name = "Brandon Hancock", email = "brandon@brandonhancock.io"}
+    {name = "Jingwei Zhang", email = "jwzhang0610@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
@@ -20,7 +20,7 @@ absl-py = "^2.1.0"
 cloudpickle = "^3.0.0"
 
 [tool.poetry.scripts]
-adk-short-bot = "adk_short_bot:app"
+manager = "manager:app"
 deploy-local = "deployment.local:main"
 deploy-remote = "deployment.remote:main"
 cleanup = "deployment.cleanup:cleanup_deployment"
