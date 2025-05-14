@@ -3,7 +3,7 @@ name = "manager"
 version = "0.1.0"
 description = "A bot that helps students with autism"
 authors = [
-    {name = "Jingwei Zhang", email = "jwzhang0610@gmail.com"}
+    {name = "Jingwei Zhang", email = "lingoforge@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
