@@ -38,7 +38,8 @@ poetry env use C:\Users\jwzha\AppData\Local\Programs\Python\Python312\python.exe
 4. Activate the virtual environment:
 ```bash
 # source $(poetry env info --path)/bin/activate 
-source "$(poetry env info --path)/Scripts/activate"
+# source "$(poetry env info --path)/Scripts/activate" # bash
+& "$(poetry env info --path)\Scripts\Activate.ps1" # powershell
 
 ```
 
