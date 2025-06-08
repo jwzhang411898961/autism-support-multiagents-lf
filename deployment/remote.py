@@ -78,15 +78,16 @@ def list_deployments() -> None:
         print(f"- {deployment.resource_name}")
 
 
-def create_session(resource_id: str, user_id: str) -> None:
+def create_session(resource_id: str, user_id="test_user") -> None:
     """Creates a new session for the specified user."""
     remote_app = agent_engines.get(resource_id)
     remote_session = remote_app.create_session(user_id=user_id)
     print("Created session:")
+    print('remote_session: ', remote_session)
     print(f"  Session ID: {remote_session['id']}")
-    print(f"  User ID: {remote_session['user_id']}")
-    print(f"  App name: {remote_session['app_name']}")
-    print(f"  Last update time: {remote_session['last_update_time']}")
+    print(f"  User ID: {remote_session['userId']}")
+    print(f"  App name: {remote_session['appName']}")
+    print(f"  Last update time: {remote_session['lastUpdateTime']}")
     print("\nUse this session ID with --session_id when sending messages.")
 
 
@@ -141,6 +142,11 @@ def main(argv=None):
     )
     location = FLAGS.location if FLAGS.location else os.getenv("GOOGLE_CLOUD_LOCATION")
     bucket = FLAGS.bucket if FLAGS.bucket else os.getenv("GOOGLE_CLOUD_STAGING_BUCKET")
+    
+    # Validate user_id
+    if not FLAGS.user_id:
+        print("Error: --user_id is required")
+        return
     user_id = FLAGS.user_id
 
     if not project_id:
