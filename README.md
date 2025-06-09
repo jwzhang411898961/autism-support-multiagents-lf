@@ -167,3 +167,8 @@ To add new features or modify existing ones:
 
 
 poetry run adk api_server --port 8010
+
+# git pull doesn't work (adhoc)
+删除旧的 COMMIT_EDITMSG 文件（如果它存在）
+这个文件可能处于“锁定”或“只读”状态：
+Remove-Item .git\COMMIT_EDITMSG -Force -ErrorAction SilentlyContinue
