@@ -91,7 +91,7 @@ def create_session(resource_id: str, user_id="test_user") -> None:
     print("\nUse this session ID with --session_id when sending messages.")
 
 
-def list_sessions(resource_id: str, user_id: str) -> None:
+def list_sessions(resource_id: str, user_id="test_user") -> None:
     """Lists all sessions for the specified user."""
     remote_app = agent_engines.get(resource_id)
     sessions = remote_app.list_sessions(user_id=user_id)
