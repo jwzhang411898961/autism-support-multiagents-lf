@@ -172,3 +172,18 @@ poetry run adk api_server --port 8010
 删除旧的 COMMIT_EDITMSG 文件（如果它存在）
 这个文件可能处于“锁定”或“只读”状态：
 Remove-Item .git\COMMIT_EDITMSG -Force -ErrorAction SilentlyContinue
+
+
+##### Send a Query (a Message)
+curl -X POST \
+  -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "content": {
+      "role": "user",
+      "parts": [
+        { "text": "Show me the last 5 logs from session ID abc123." }
+      ]
+    }
+  }' \
+  "https://us-central1-aiplatform.googleapis.com/v1beta1/projects/your-project-id/locations/us-central1/reasoningEngines/your-agent-id/sessions/your-session-id:run"
