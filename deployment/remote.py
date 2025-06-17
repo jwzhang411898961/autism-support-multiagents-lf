@@ -6,6 +6,7 @@ from absl import app, flags
 from dotenv import load_dotenv
 from vertexai import agent_engines
 from vertexai.preview import reasoning_engines
+# from vertexai.preview.reasoning_engines.AdkApp import stream_query
 
 from manager.agent import root_agent
 
@@ -39,7 +40,11 @@ flags.mark_bool_flags_as_mutual_exclusive(
         "send",
     ]
 )
-
+GOOGLE_CLOUD_PROJECT="hackathon-att-2025-lf"
+# GOOGLE_CLOUD_PROJECT=gcpxmlb25
+GOOGLE_CLOUD_LOCATION="us-central1"
+GOOGLE_CLOUD_STAGING_BUCKET="gs://hackathon-att-2025"
+# GOOGLE_CLOUD_STAGING_BUCKET=gs://gcp-adk-hackathon
 
 def create() -> None:
     """Creates a new deployment."""
@@ -96,7 +101,7 @@ def list_sessions(resource_id: str, user_id="test_user") -> None:
     remote_app = agent_engines.get(resource_id)
     sessions = remote_app.list_sessions(user_id=user_id)
     print(f"Sessions for user '{user_id}':")
-    for session in sessions:
+    for session in sessions['sessions']:
         print(f"- Session ID: {session['id']}")
 
 
@@ -106,25 +111,40 @@ def get_session(resource_id: str, user_id: str, session_id: str) -> None:
     session = remote_app.get_session(user_id=user_id, session_id=session_id)
     print("Session details:")
     print(f"  ID: {session['id']}")
-    print(f"  User ID: {session['user_id']}")
-    print(f"  App name: {session['app_name']}")
-    print(f"  Last update time: {session['last_update_time']}")
+    print(f"  User ID: {session['userId']}")
+    print(f"  App name: {session['appName']}")
+    print(f"  Last update time: {session['lastUpdateTime']}")
 
 
 def send_message(resource_id: str, user_id: str, session_id: str, message: str) -> None:
     """Sends a message to the deployed agent."""
     remote_app = agent_engines.get(resource_id)
 
+    # remote_app = reasoning_engines.AdkApp.from_engine(
+    #     resource_name=f"projects/{GOOGLE_CLOUD_PROJECT}/locations/{GOOGLE_CLOUD_LOCATION}/reasoningEngines/{resource_id}"
+    # )
+
+
     print(f"Sending message to session {session_id}:")
     print(f"Message: {message}")
     print("\nResponse:")
+
+    # response = stream_query(
+    #     resource_name=f"projects/{GOOGLE_CLOUD_PROJECT}/locations/{GOOGLE_CLOUD_LOCATION}/reasoningEngines/{resource_id}",
+    #     session_id=session_id,
+    #     user_id=user_id,
+    #     message=message,
+    # )
+    # print("Response:")
+    # for event in response.get("events", []):
+    #     print(event)
+
     for event in remote_app.stream_query(
         user_id=user_id,
         session_id=session_id,
         message=message,
     ):
         print(event)
-
 
 def main(argv=None):
     """Main function that can be called directly or through app.run()."""
