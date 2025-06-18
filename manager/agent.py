@@ -10,7 +10,7 @@ from .sub_agents.input_and_state.agent import input_and_state
 from .sub_agents.study_reengagement.agent import study_reengagement
 from .sub_agents.calm_strategy.agent import calm_strategy
 from .sub_agents.personalization_and_logging.agent import personalization_and_logging
-from .sub_agents.mcp.agent import mcp_agent
+from .sub_agents.postgres_agent.agent import Postgres_MCP_Agent
 
 from .tools.tools import get_current_time
 
@@ -64,7 +64,7 @@ root_agent = Agent(
         - get_current_time 
   
     """,
-    sub_agents=[input_and_state, calm_strategy, study_reengagement, personalization_and_logging, mcp_agent],
+    sub_agents=[input_and_state, calm_strategy, study_reengagement, personalization_and_logging, Postgres_MCP_Agent],
     tools=[
         # AgentTool(input_and_state),
         get_current_time,
