@@ -32,7 +32,7 @@ prompt = """
   If summarizing conversations, focus on the main topics, decisions, and action items.
 """
 
-root_agent = Agent(
+mcp_agent = Agent(
     model='gemini-2.0-flash',
     name='text_log_agent',
     description='A helpful AI assistant.',
