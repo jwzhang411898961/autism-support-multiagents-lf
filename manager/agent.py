@@ -10,6 +10,7 @@ from .sub_agents.input_and_state.agent import input_and_state
 from .sub_agents.study_reengagement.agent import study_reengagement
 from .sub_agents.calm_strategy.agent import calm_strategy
 from .sub_agents.personalization_and_logging.agent import personalization_and_logging
+from .sub_agents.db_mcp_client_agent.agent import root_agent as root_agent_v2
 
 from .tools.tools import get_current_time
 
@@ -65,7 +66,7 @@ root_agent = Agent(
     """,
     sub_agents=[input_and_state, calm_strategy, study_reengagement, personalization_and_logging],
     tools=[
-        # AgentTool(input_and_state),
+        AgentTool(root_agent_v2),
         get_current_time,
         # google_search
     ], 
