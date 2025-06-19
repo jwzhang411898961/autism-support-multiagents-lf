@@ -1,0 +1,35 @@
+sources:
+  my-pg-source:
+    kind: postgres
+    host: 127.0.0.1
+    port: 5432
+    database: speakease
+    user: ${USER_NAME}
+    password: ${PASSWORD}
+tools:
+  search-text-logs-by-uid:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Search for text_logs based on uid.
+    parameters:
+      - name: uid
+        type: string
+        description: uid, unique identifier of the user.
+    statement: SELECT * FROM textlog WHERE uid = $1;
+  search-text-logs-by-uid-session-id:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Search for text_logs based on uid and session_id.
+    parameters:
+      - name: uid
+        type: string
+        description: uid, unique identifier of the user.
+      - name: session_id
+        type: string
+        description: session_id, unique identifier of the session.
+    statement: SELECT * FROM textlog WHERE uid = $1 AND session_id = $2;
+toolsets:
+  my-toolset:
+    - search-text-logs-by-uid
+    - search-text-logs-by-uid-session-id
+
