@@ -10,7 +10,7 @@ from .prompt import DB_MCP_PROMPT
 PATH_TO_YOUR_MCP_SERVER_SCRIPT = str((Path(__file__).parent / "server.py").resolve())
 
 
-db_mcp_client_agent = LlmAgent(
+root_agent = LlmAgent(
     model="gemini-2.0-flash",
     name="db_mcp_client_agent",
     instruction=DB_MCP_PROMPT,
